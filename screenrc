@@ -1,0 +1,17 @@
+startup_message off
+vbell off
+bell_msg ""
+term xterm
+altscreen on
+hardstatus on
+hardstatus alwayslastline  "%{b kw}%H %{r}%1` %{w}| %{g}%c %{w}| %{-b kw}%u %-Lw%{= rW}%50> %n%f %t %{-}%+Lw%<"
+#hardstatus alwayslastline  "%= %L>%{= B}%n*%t%{-}%52< %L="
+#hardstatus alwayslastline  "%= %-w%L>%{= BW}%n*%t%{-}%52<%+w %L="
+#escape ^Zz
+bindkey -k F1 prev
+bindkey -k F2 next
+defscrollback 100000
+screen -t code
+screen -t build
+#screen -t debugger
+screen -t console
