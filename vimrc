@@ -78,5 +78,6 @@ nmap <F5> :tabn<CR>
 nmap <F7> :set tabstop=4 <bar> set shiftwidth=4<CR>
 nmap <F8> :set tabstop=8 <bar> set shiftwidth=8<CR>
 
+hi Comment ctermfg=darkgray
 highlight ColorColumn ctermbg=5*
 let &colorcolumn="80,".join(range(120,121),",")
