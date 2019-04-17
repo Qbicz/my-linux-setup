@@ -14,4 +14,4 @@ defscrollback 100000
 screen -t code
 screen -t build
 #screen -t debugger
-screen -t console
+#screen -t console

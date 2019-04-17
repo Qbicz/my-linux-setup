@@ -116,12 +116,46 @@ if ! shopt -oq posix; then
   fi
 fi
 
+
+# Filip, force color in screen
+TERM="xterm-256color"
+
+
 # Nordic SDK
 SDK_ROOT_PATH="$HOME/sdk"
-DFU_EXAMPLE_PATH="$SDK_ROOT_PATH/examples/dfu/bootloader_secure_ble"
-alias make_dfu="make -C $DFU_EXAMPLE_PATH/Projects/Firmware/armgcc"
+DFU_EXAMPLE_PATH="$SDK_ROOT_PATH/sdk/nrf5/examples/dfu/bootloader_secure_ble"
+SR3_PATH="$SDK_ROOT_PATH/sdk/nrf5/examples/ble_peripheral/smart_remote_3_nrf52"
+QUARK_BUILD_PATH="$SR3_PATH/Projects/Firmware_nRF52832/armgcc/_build/"
+GLUON_BUILD_PATH="$SR3_PATH/Projects/Firmware_nRF52810/armgcc/_build"
+alias make_quark_20023="(cd $SR3_PATH/Projects/Firmware_nRF52832/armgcc && make -j8 PCA20023-SR3_nRF52832_Product_Example)"
 alias jlink="JLinkExe -autoconnect 1 -device NRF52832_XXAA -if SWD -speed 4000"
 
-# CScope
-export CSCOPE_DB=$SDK_ROOT_PATH/cscope.out
+alias flash_sd_5="nrfjprog --program $SDK_ROOT_PATH/sdk/nrf5/components/softdevice/s132/hex/s132_nrf52_5.1.0_softdevice.hex --chiperase --verify"
+alias flash_quark_pe="nrfjprog --program $QUARK_BUILD_PATH/PCA20023-SR3_nRF52832_Product_Example.hex --sectorerase --verify"
+alias sf_copy_sr3_quark_pe="cp $QUARK_BUILD_PATH/PCA20023-SR3_nRF52832_Product_Example.hex ~/SF"
+alias cmsis_config="java -jar $SDK_ROOT_PATH/sdk/nrf5/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar $SR3_PATH/Source/Configuration/sr3_config_nrf52832_pca20023.h"
+
+alias gluon_make="(cd $SR3_PATH/Projects/Firmware_nRF52810/armgcc && make -j8 PCA20031-SR3_nRF52810_Product_Example)"
+alias gluon_sf_copy="cp $GLUON_BUILD_PATH/PCA20031-SR3_nRF52810_Product_Example.hex ~/SF"
+alias gluon_cmsis_config="java -jar $SDK_ROOT_PATH/sdk/nrf5/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar $SR3_PATH/Source/Configuration/sr3_config_nrf52810_pca20031.h"
+
+# nRF Tools
+export PATH=$PATH:/opt/nrfjprog:/opt/mergehex
+
+# Smart Remote Host Tools
+export PATH=$PATH:/opt/audioprobe:/opt/bluetooth-console
+
+# CScope Nordic nRF5 SDK
+export CSCOPE_DB=$SDK_ROOT_PATH/sdk/nrf5/cscope.out
 alias rbcs="$HOME/cscope_rebuild_sdk_database.sh"
+# CScope Zephyr
+#export CSCOPE_DB=$HOME/ncs/cscope.out
+alias rbz=$HOME/cscope_rebuild_zephyr_database.sh
+
+# Zephyr variables
+source $HOME/ncs/zephyr/zephyr-env.sh
+alias z_checkpatch_last_commit="git show | ${ZEPHYR_BASE}/scripts/checkpatch.pl -"
+
+export GOPATH=/home/fi/ncs/mcumgr
+export PATH=$PATH:/home/fi/ncs/mcumgr/bin
+
