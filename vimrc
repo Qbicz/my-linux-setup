@@ -1,3 +1,5 @@
+# To enable F2 (Nerdtree) and other features, install https://github.com/VundleVim/Vundle.vim
+
 syntax enable
 set hlsearch
 set cindent
