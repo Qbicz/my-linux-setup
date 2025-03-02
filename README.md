@@ -7,3 +7,7 @@ After copying vimrc to `~/.vimrc`, install Vundle according to instructions: htt
 For Python projects, use https://github.com/MartinHeinz/python-project-blueprint
 
 For C++ projects, use https://github.com/madduci/moderncpp-project-template
+
+# Utils
+
+better `find`: https://github.com/sharkdp/fd
